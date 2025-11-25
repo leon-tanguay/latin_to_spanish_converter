@@ -1,0 +1,237 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-step-0: #059669; /* Green for step 0 (syllabification/phonetics) */
+    --color-step-medieval: #d97706; /* Orange for regular steps */
+    --color-step-modern: #7c3aed; /* Purple for step 20+ (medieval to modern) */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #fffbeb 0%, #fed7aa 100%);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 48rem;
+    margin: 0 auto;
+}
+
+.header {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.header h1 {
+    color: #78350f;
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    color: #b45309;
+    font-size: 0.875rem;
+}
+
+.input-section {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-label {
+    display: block;
+    color: #78350f;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.format-info {
+    background: #fffbeb;
+    border: 2px solid #fcd34d;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.format-info p {
+    color: #92400e;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.format-info p:last-child {
+    margin-bottom: 0;
+}
+
+.format-example {
+    color: #b45309;
+    font-size: 0.75rem;
+    font-family: monospace;
+}
+
+.format-example strong {
+    font-weight: bold;
+}
+
+.input-group {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.input-field {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid #fcd34d;
+    border-radius: 0.5rem;
+    font-size: 1.125rem;
+    font-family: monospace;
+    outline: none;
+}
+
+.input-field:focus {
+    border-color: #d97706;
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+}
+
+.btn-process {
+    padding: 0.75rem 1.5rem;
+    background: #d97706;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.2s;
+}
+
+.btn-process:hover {
+    background: #b45309;
+}
+
+.btn-clear {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: #b45309;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.btn-clear:hover {
+    color: #78350f;
+}
+
+.steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.step-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition: box-shadow 0.2s;
+}
+
+.step-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.step-content {
+    display: flex;
+    gap: 1rem;
+    align-items: start;
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    background: var(--step-color); /* This will be set dynamically */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.875rem;
+}
+
+.step-details {
+    flex: 1;
+}
+
+.step-result {
+    background: #fffbeb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.step-result p {
+    font-size: 1.5rem;
+    font-family: monospace;
+    color: #78350f;
+    word-break: break-word;
+}
+
+.step-description {
+    font-size: 0.875rem;
+    color: #b45309;
+}
+
+.empty-state {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 3rem;
+    text-align: center;
+}
+
+.empty-icon {
+    color: #fcd34d;
+    margin-bottom: 1rem;
+}
+
+.empty-text {
+    color: #d97706;
+    font-size: 1.125rem;
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon-large {
+    width: 4rem;
+    height: 4rem;
+}
+
+.hidden {
+    display: none;
+}
