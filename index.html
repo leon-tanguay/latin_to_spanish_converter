@@ -1,59 +1,165 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Procesador Español → Latín</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>Procesador Latín → Español Moderno</h1>
-            <p>Guía paso a paso de la transformación de palabras</p>
+      <!-- Header -->
+      <div class="header">
+        <h1>Procesador Latín → Español Moderno</h1>
+        <p>Guía paso a paso de la transformación de palabras</p>
+      </div>
+
+      <!-- Input Section -->
+      <div class="input-section">
+        <label class="input-label"
+          >Ingrese la palabra en formato correcto:</label
+        >
+        <div class="format-info">
+          <p>
+            <strong>Formato requerido:</strong> Las vocales deben mostrar su
+            longitud mediante capitalización
+          </p>
+          <p class="format-example">
+            Ejemplo: <strong>SPECuLuM</strong> (mayúsculas en E = larga,
+            minúsculas en u = cortas)
+          </p>
         </div>
 
-        <!-- Input Section -->
-        <div class="input-section">
-            <label class="input-label">Ingrese la palabra en formato correcto:</label>
-            <div class="format-info">
-                <p><strong>Formato requerido:</strong> Las vocales deben mostrar su longitud mediante capitalización</p>
-                <p class="format-example">Ejemplo: <strong>SPECuLuM</strong> (mayúsculas en E = larga, minúsculas en u = cortas)</p>
-            </div>
-            
-            <div class="input-group">
-                <input type="text" id="wordInput" class="input-field" placeholder="Ej: SPECuLuM">
-                <button class="btn-process" onclick="processWord()">
-                    Procesar
-                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                    </svg>
-                </button>
-            </div>
-            
-            <button class="btn-clear hidden" id="clearBtn" onclick="handleClear()">
-                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                </svg>
-                Limpiar
-            </button>
+        <div
+          class="format-info"
+          style="background: #fef3c7; border-color: #fbbf24"
+        >
+          <p style="color: #92400e; margin: 0 0 0.75rem 0">
+            <label
+              style="
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                cursor: pointer;
+              "
+            >
+              <input
+                type="checkbox"
+                id="yodInflectionCheckbox"
+                style="width: 1rem; height: 1rem; cursor: pointer"
+              />
+              <strong>La yod hace inflexión en la vocal</strong> (cierra
+              vocales: ɔ→o, ɛ→e, a→e)
+            </label>
+          </p>
+
+          <p style="color: #92400e; margin: 0 0 0.75rem 0">
+            <label
+              style="
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                cursor: pointer;
+              "
+            >
+              <input
+                type="checkbox"
+                id="segundaSincopaCheckbox"
+                style="width: 1rem; height: 1rem; cursor: pointer"
+              />
+              <strong>Aplicar síncopa tardía</strong> (proceso 18)
+            </label>
+          </p>
+
+          <p style="color: #92400e; margin: 0">
+            <label
+              style="
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                cursor: pointer;
+              "
+            >
+              <input
+                type="checkbox"
+                id="mantenerEFinalCheckbox"
+                style="width: 1rem; height: 1rem; cursor: pointer"
+              />
+              <strong>Mantener "e" final</strong> (omitir proceso 20)
+            </label>
+          </p>
         </div>
 
-        <!-- Steps Container -->
-        <div id="stepsContainer" class="steps-container hidden"></div>
-
-        <!-- Empty State -->
-        <div id="emptyState" class="empty-state">
-            <div class="empty-icon">
-                <svg class="icon-large" style="margin: 0 auto;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                </svg>
-            </div>
-            <p class="empty-text">Ingrese una palabra para ver el proceso de transformación</p>
+        <div class="input-group">
+          <input
+            type="text"
+            id="wordInput"
+            class="input-field"
+            placeholder="Ej: SPECuLuM"
+          />
+          <button class="btn-process" onclick="processWord()">
+            Procesar
+            <svg
+              class="icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              ></path>
+            </svg>
+          </button>
         </div>
+
+        <button class="btn-clear hidden" id="clearBtn" onclick="handleClear()">
+          <svg
+            class="icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            ></path>
+          </svg>
+          Limpiar
+        </button>
+      </div>
+
+      <!-- Steps Container -->
+      <div id="stepsContainer" class="steps-container hidden"></div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="empty-state">
+        <div class="empty-icon">
+          <svg
+            class="icon-large"
+            style="margin: 0 auto"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 19V5M5 12L12 5L19 12"
+            ></path>
+          </svg>
+        </div>
+        <p class="empty-text">
+          Ingrese una palabra para ver el proceso de transformación
+        </p>
+      </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
