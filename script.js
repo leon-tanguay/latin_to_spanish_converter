@@ -391,36 +391,42 @@ function step0_iii_weights(input) {
 // NOTE: This function needs the 'isVowel' helper and the 'isPesada' logic from the previous step.
 
 function step0_iii_tonic(input) {
-    // Only proceed if the word has 3 or more syllables (stress was assigned in 0b for 1/2 syllables)
     const { clean, formatting } = stripFormatting(input);
     let word = clean;
     
-    // The clean string now may contain asterisks * for pesada syllables
+    const syllables = word.split(' ');
     
-    // Split into syllables, removing asterisks before analysis
-    const cleanSyllables = word.split(' ').map(syl => syl.replace(/\*/g, ''));
+    // For words with fewer than 3 syllables, stress should be on first syllable
+    if (syllables.length < 3) {
+        const result = syllables.map((syl, idx) => {
+            if (idx === 0) {
+                return `<u>${syl}</u>`;
+            }
+            return syl;
+        }).join(' ');
+        
+        return {
+            stepNumber: 'Inicio',
+            result: restoreFormatting(result, formatting),
+            description: `Identificar sílaba tónica: Primera sílaba (palabra de ${syllables.length} sílaba${syllables.length === 1 ? '' : 's'})`
+        };
+    }
     
-    if (cleanSyllables.length < 3) return null;
-    
-    let tonicIndex = -1;
-    let wordType = '';
-    
-    // Re-create isPesada helper to ensure logic consistency (or rely on the asterisk marker)
-    // We'll rely on the asterisk marker being present in the input word for the simplest approach.
-    const syllables = word.split(' '); // Keep asterisks for index matching
-    
+    // For 3+ syllables, apply penultimate rule
     const penultimateIndex = syllables.length - 2;
     const antepenultimateIndex = syllables.length - 3;
     
-    // Check if second-to-last (penultimate) is pesada (Grave)
-    // A syllable is pesada if it contains an asterisk in this input format.
-    const isPenultimatePesada = syllables[penultimateIndex].includes('*');
+    // Check if penultimate is pesada (marked with <b> tags)
+    const penultimate = syllables[penultimateIndex];
+    const isPenultimatePesada = penultimate.includes('<b>');
+    
+    let tonicIndex;
+    let wordType;
     
     if (isPenultimatePesada) {
         tonicIndex = penultimateIndex;
         wordType = 'Grave (Penúltima <b>pesada</b>)';
     } else {
-        // Otherwise, always third-to-last (antepenultimate) (Esdrújula)
         tonicIndex = antepenultimateIndex;
         wordType = 'Esdrújula (Penúltima ligera)';
     }
@@ -428,8 +434,7 @@ function step0_iii_tonic(input) {
     // Mark the tonic syllable with underline
     const result = syllables.map((syl, idx) => {
         if (idx === tonicIndex) {
-            // Underline the entire syllable, including its * markers
-            return `<u>${syl}</u>`; 
+            return `<u>${syl}</u>`;
         }
         return syl;
     }).join(' ');
@@ -545,7 +550,7 @@ function step0_iv(input) {
     const result = '/' + ipaResult + '/';
     
     return {
-        stepNumber: 'Inicio', // Changed from '0' to '0iv' for consistency with earlier steps
+        stepNumber: 'Inicio',
         result: result,
         description: 'Convertir a pronunciación fonética internacional (IPA)'
     };
